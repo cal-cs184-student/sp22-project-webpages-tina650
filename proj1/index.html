@@ -1,7 +1,115 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 1 here
-	</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>
+  body {
+    padding: 100px;
+    width: 1000px;
+    margin: auto;
+    text-align: left;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    color: #121212;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+</style>
+<title>CS 184 Rasterizer</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
+</head>
+
+
+<body>
+
+<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2018</h1>
+<h1 align="middle">Project 1: Rasterizer</h1>
+<h2 align="middle">Tina Li & Daniel Won, CS184-??</h2>
+
+<br><br>
+
+<div>
+
+<h2 align="middle">Overview</h2>
+<p>Give a high-level overview of what you implemented in this project. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the project.</p>
+
+<h2 align="middle">Section I: Rasterization</h2>
+
+<h3 align="middle">Part 1: Rasterizing single-color triangles</h3>
+
+<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
+
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/image1.png" align="middle" width="400px"/>
+        <figcaption align="middle">Caption goes here.</figcaption>
+      </td>
+      <td>
+        <img src="images/image2.png" align="middle" width="400px"/>
+        <figcaption align="middle">Caption goes here.</figcaption>
+      </td>
+    </tr>
+    <br>
+    <tr>
+      <td>
+        <img src="images/image3.png" align="middle" width="400px"/>
+        <figcaption align="middle">Caption goes here.</figcaption>
+      </td>
+      <td>
+        <img src="images/image4.png" align="middle" width="400px"/>
+        <figcaption align="middle">Caption goes here.</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<h3 align="middle">Part 2: Antialiasing triangles</h3>
+
+
+
+<h3 align="middle">Part 3: Transforms</h3>
+<p>
+    For this part, we used the mathematical formula brought up during lecture.
+    Translate and scale was simple to implement as
+    
+    \n
+    
+    For rotate, it was a bit confusing as plugging in just the degree argument into sinusoidal functions in the given rotational matrix formula produced a head graphic rotated slightly off from the source svg image. After consulting Piazza and investigating what units the sinusoidal functions used, we figured out that we need to first convert the degree argument into radians. To do so, we multiplied deg by PI / 180, and then we inputted this radian measurement into the matrix.
+</p>
+
+
+<h2 align="middle">Section II: Sampling</h2>
+
+<h3 align="middle">Part 4: Barycentric coordinates</h3>
+<div style="display:flex;flex-direction:column;align-items:center;">
+    <img src="images/task4_screenshot.png" style="width:500px; height:375px;align:middle;"/>
+    <figcaption align="middle">Color wheel output</figcaption>
+    <p>
+        Barycentric coordinates is a way to find a position, color, or other graphic elements within a triangle relative to the vertices of the triangle. Depending on where a pixel is relative to each vertex and the value of a given graphic element at each vertex, the value of the graphic element we are investigating will correspond to the proportional distances to each vertex, which creates a nearly smooth gradient of values. For example,
+    </p>
+</div>
+
+
+<h3 align="middle">Part 5: "Pixel sampling" for texture mapping</h3>
+<p>
+    Pixel sampling allows us to get a more accurate color relative to the image or texture we are trying to render for a given pixel rather than simply just grabbing the color of whichever pixel we are currently calculating for. If we were to not do pixel sampling and do the naive way of simple picking out colors from the corresponding pixel, we risk the image quality to look very jagged.
+    \n\n
+    Nearest pixel sampling involves looking at the nearest 4 surrounding 
+</p>
+
+
+<h3 align="middle">Part 6: "Level sampling" with mipmaps for texture mapping</h3>
+
+
+
+<h2 align="middle">Section III: Art Competition</h2>
+<p>If you are not participating in the optional art competition, don't worry about this section!</p>
+
+<h3 align="middle">Part 7: Draw something interesting!</h3>
+
+</body>
 </html>
