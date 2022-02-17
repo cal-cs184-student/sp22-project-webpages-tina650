@@ -139,7 +139,7 @@
 <h3 align="middle">Part 4: Barycentric coordinates</h3>
       
   <div style="display:flex;flex-direction:column;align-items:center;">
-  <img src="images/tri.PNG" style="width:375px; height:500px;align:middle;"/>
+  <img src="images/tri.png" style="width:375px; height:500px;align:middle;"/>
     <figcaption align="middle">Test 4</figcaption>
     
     <p>
@@ -159,10 +159,45 @@
 
 <h3 align="middle">Part 5: "Pixel sampling" for texture mapping</h3>
 <p>
-    Pixel sampling allows us to get a more accurate color relative to the image or texture we are trying to render for a given pixel rather than simply just grabbing the color of whichever pixel we are currently calculating for. If we were to not do pixel sampling and do the naive way of simple picking out colors from the corresponding pixel, we risk the image quality to look very jagged.
-    \n\n
-    Nearest pixel sampling involves looking at the nearest 4 surrounding 
+  Pixel sampling allows us to get a more accurate color relative to the image or texture we are trying to render for a given pixel rather than simply just grabbing 
+  the color of whichever pixel we are currently calculating for. If we were to not do pixel sampling and do the naive way of simply picking out colors from the 
+  corresponding pixel, we risk the image quality to look very jagged. To implement pixel sampling relative to texture mapping, we calculate Barycentric coordinates 
+  for a given (x,y) pixel relative to the given screen space triangle coordinates and texture space triangle coordinates, and passing these (u,v) coordinates into a 
+  SampleParams struct that is passed as an argument to the given texture’s sample method that retrieves a color using the appropriate sampling method.
 </p>
+    
+<p>
+  Nearest pixel sampling relies on the idea that the color of a given pixel will take the color of the closest pixel to its (u,v) Barycentric coordinates in the texture space. 
+  Bilinear pixel sampling, on the other hand, looks at the colors of the surrounding set of 4 pixels and uses the pixel’s position relative to these 4 pixels via linear 
+  interpolation to calculate the color from the proportional distances from these pixels.
+</p>
+    
+    
+      <div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/near1.png" align="middle" width="400px"/>
+        <figcaption align="middle">Nearest Sampling: 1 Sample per Pixel</figcaption>
+      </td>
+      <td>
+        <img src="images/near16.png" align="middle" width="400px"/>
+        <figcaption align="middle">Nearest Sampling: 16 Samples per Pixel</figcaption>
+      </td>
+    </tr>
+    <br>
+    <tr>
+      <td>
+        <img src="images/test4_9.png" align="middle" width="400px"/>
+        <figcaption align="middle">Sample rate = 9</figcaption>
+      </td>
+      <td>
+        <img src="images/test4_16.png" align="middle" width="400px"/>
+        <figcaption align="middle">Sample rate = 16</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
 
 
 <h3 align="middle">Part 6: "Level sampling" with mipmaps for texture mapping</h3>
