@@ -50,7 +50,8 @@
     This algorithm is no worse than the one that checks each sample within the bounding box of the triangle because my algorithm does exactly that. Therefore, it is no worse. 
   </p>
 
-  <img src="images/basic_test6.PNG";align:middle;"/>
+  <div style="display:flex;flex-direction:column;align-items:center;">
+  <img src="images/basic_test6.PNG" style="width:500px; height:375px;align:middle;"/>
     <figcaption align="middle">Test 4</figcaption>
   
   <p>
@@ -76,36 +77,40 @@
   <p> 
                   Supersampling is useful because it blurs the edges of the shapes, which in part make the image smoother. 
   </p>
-                  
-  <p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. 
-    You might find this useful for framing and showing your result images in an organized fashion.</p>
+          
   
   <div align="middle">
   <table style="width=100%">
     <tr>
       <td>
-        <img src="images/image1.png" align="middle" width="400px"/>
-        <figcaption align="middle">Caption goes here.</figcaption>
+        <img src="images/basic_test6.PNG" align="middle" width="400px"/>
+        <figcaption align="middle">Sample rate = 1</figcaption>
       </td>
       <td>
-        <img src="images/image2.png" align="middle" width="400px"/>
-        <figcaption align="middle">Caption goes here.</figcaption>
+        <img src="images/test4_4.PNG" align="middle" width="400px"/>
+        <figcaption align="middle">Sample rate = 4</figcaption>
       </td>
     </tr>
     <br>
     <tr>
       <td>
-        <img src="images/image3.png" align="middle" width="400px"/>
-        <figcaption align="middle">Caption goes here.</figcaption>
+        <img src="images/test4_9.png" align="middle" width="400px"/>
+        <figcaption align="middle">Sample rate = 9</figcaption>
       </td>
       <td>
-        <img src="images/image4.png" align="middle" width="400px"/>
-        <figcaption align="middle">Caption goes here.</figcaption>
+        <img src="images/test4_16.png" align="middle" width="400px"/>
+        <figcaption align="middle">Sample rate = 16</figcaption>
       </td>
     </tr>
   </table>
 </div>
 
+  <p>
+                  As you can see the supersample one has blurrier edges. The reason for this is because in supersampling we get the average color of all the subpixels of 
+                  each pixel. So if it’s an edge pixel the color will not be just fully red or white, but how many subpixels’ centers are within the triangle determines 
+                  the intensity of the red in the pixel. So as you can see when we increase the sample rate we are increasing the number of subpixels and getting blurrier 
+                  edges which makes for smoother images. 
+  </p>
 
 
 <h3 align="middle">Part 3: Transforms</h3>
