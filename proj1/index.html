@@ -50,8 +50,14 @@
     This algorithm is no worse than the one that checks each sample within the bounding box of the triangle because my algorithm does exactly that. Therefore, it is no worse. 
   </p>
 
-  <img src="image/basic_test6.png" style="width:500px; height:375px;align:middle;"/>
+  <img src="images/basic_test6.png" style="width:500px; height:375px;align:middle;"/>
     <figcaption align="middle">Test 6</figcaption>
+  
+  <p>
+    This screenshot is interesting because it shows how even though the triangle in the larger (zoomed out) picture looks like it is completely filled in, it is actually not. 
+    As you can see there are pixels at the tip of this triangle drawing that don’t have their centers inside the triangle according to our 3 line tests. So they are not filled 
+    in with color.
+  </p>
   
 
 <h3 align="middle">Part 2: Antialiasing triangles</h3>
