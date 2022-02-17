@@ -33,7 +33,12 @@
 <div>
 
 <h2 align="middle">Overview</h2>
-<p>Give a high-level overview of what you implemented in this project. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the project.</p>
+<p> In this project we rasterized various svg images by individually rendering the triangles that make up the svg files. 
+  We implemented multiple methods of antialiasing with varying degrees of performance and quality. These include supersampling that takes multiple samples 
+  within a pixel to produce accurate colors, as well as pixel and level sampling methods that apply textures to fit within an object of a lower-resolution 
+  in the screen space. One interesting thing we learned from this project were the inner workings and mathematics behind how images are rendered and manipulated 
+  in visual softwares like Adobe Photoshop. 
+</p>
 
 <h2 align="middle">Section I: Rasterization</h2>
 
@@ -192,8 +197,8 @@
         <figcaption align="middle">Bilinear Sampling: 1 Sample per Pixel</figcaption>
       </td>
       <td>
-        <img src="images/test4_16.png" align="middle" width="400px"/>
-        <figcaption align="middle">Sample rate = 16</figcaption>
+        <img src="images/bi16.png" align="middle" width="400px"/>
+        <figcaption align="middle">Bilinear Sampling: 16 Sample per Pixel</figcaption>
       </td>
     </tr>
   </table>
@@ -201,6 +206,28 @@
 
 
 <h3 align="middle">Part 6: "Level sampling" with mipmaps for texture mapping</h3>
+    
+    <p>
+      Level sampling is when the texture is too big for a given screen or object so we need to shrink and downsample the higher texture resolution to accurately 
+      fit into the lower resolution. To implement this as seen in the specs, we first approximated the du/dx, dv/dx, du/dy, and dv/dy by translating (x+1, y) and (x, y+1) 
+      into (u,v) barycentric coordinates and scaling it by the texture’s width and height. Using these differential vectors, we calculated level L = log_2(D) where D is 
+      calculated via the formula brought up in class (or the max of sqrt(du/dx ^2 + dv/dx ^2) and sqrt(du/dy^2 + dv/dy^2) ). Based on the linear sampling method chosen, 
+      we appropriately adjusted the level according to each one’s functionality.
+    </p>
+    
+    <p>
+      Based on the performance statistics given on Xcode:
+<ul><li>Nearest at 1 sample per pixel: 73% CPU usage, 64.1 MB used, which was typically faster than bilinear sampling with a lower quality antialiasing</li>
+<li>Bilinear at 1 sample per pixel: 85% CPU usage, 68.1 MB: relatively used more (but not extremely more) memory for a higher quality antialiasing</li>
+<li>Bilinear at 16 samples per pixel: 99% CPU usage, 398 MB, which was significantly more memory than the original 1 sample per pixel</li>
+    </ul>
+    </p>
+      
+      <p>
+        We were unfortunately unable to get level sampling to properly produce the correct image as it displayed highly distorted colors with a lot of noise. 
+        Based on the errors that continually occurred, there are several potential sources of error for why this is occurring. 
+      </p>
+    
 
 
 
