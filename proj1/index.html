@@ -116,12 +116,22 @@
 <h3 align="middle">Part 3: Transforms</h3>
 <p>
     For this part, we used the mathematical formula brought up during lecture.
-    Translate and scale was simple to implement as
-    
-    \n
-    
-    For rotate, it was a bit confusing as plugging in just the degree argument into sinusoidal functions in the given rotational matrix formula produced a head graphic rotated slightly off from the source svg image. After consulting Piazza and investigating what units the sinusoidal functions used, we figured out that we need to first convert the degree argument into radians. To do so, we multiplied deg by PI / 180, and then we inputted this radian measurement into the matrix.
+    Translate and scale was simple to implement. 
+  For rotate, it was a bit confusing as plugging in just the degree argument into sinusoidal functions in the given rotational matrix formula produced a 
+  head graphic rotated slightly off from the source svg image. After consulting Piazza and investigating what units the sinusoidal functions used, 
+  we figured out that we need to first convert the degree argument into radians. To do so, we multiplied deg by PI / 180, and then we inputted this 
+  radian measurement into the matrix.
 </p>
+    
+    <div style="display:flex;flex-direction:column;align-items:center;">
+    <img src="images/robot.png" style="width:500px; height:375px;align:middle;"/>
+    <figcaption align="middle">En Garde Robot</figcaption>
+    
+    <p>
+      For this updated version of the cubeman, we decided to put him in a “fencing” position (originally meant to be a Spider-Man swinging towards a camera but 
+      felt that this imagery was not as clear from the output image). To create this posture, we had to apply both rotations and translations to his right arm and 
+      both legs to keep the illusion of connected joints.
+    </p>
 
 
 <h2 align="middle">Section II: Sampling</h2>
