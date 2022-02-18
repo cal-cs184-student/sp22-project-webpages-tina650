@@ -220,13 +220,61 @@
 <ul><li>Nearest at 1 sample per pixel: 73% CPU usage, 64.1 MB used, which was typically faster than bilinear sampling with a lower quality antialiasing</li>
 <li>Bilinear at 1 sample per pixel: 85% CPU usage, 68.1 MB: relatively used more (but not extremely more) memory for a higher quality antialiasing</li>
 <li>Bilinear at 16 samples per pixel: 99% CPU usage, 398 MB, which was significantly more memory than the original 1 sample per pixel</li>
+  <li> Nearest pixel sampling, nearest level sampling, at 1 sample per pixel, approximately 5.8-6 ms: 77% CPU usage, 67.9 MB memory used, which is a tiny bit above nearest pixel sampling at level zero at a higher quality antialiasing but not as much consumption as bilinear pixel sampling at level zero
+ </li>
+  <li> Bilinear pixel sampling, nearest level sampling, at 1 sample per pixel, approximately 5.5 ms: 84% CPU usage, 67.8 MB memory used, which is almost the same as bilinear pixel sampling at level zero
+ </li>
+  <li> Nearest pixel sampling, bilinear level sampling, at 1 sample per pixel, approximately 5 - 5.5 ms: 82% CPU usage, 68.1 MB memory used, this has a similar quality to that of nearest pixel sampling at bilinear level sampling with very slight improvement in antialiasing in certain areas, and in terms of memory consumption, it performs nearly the same as well.
+ </li>
+  <li> Trilinear, at 1 sample per pixel: 84% CPU usage, 68.1 MB memory used, approximately 4.8 - 5 ms, out of all the sampling method pairing at 1 sample per pixel, this yielded the blurriest and most powerful antialiasing, without the memory usage changing much. There is a fairly significant jump between nearest pixel sampling with bilinear level sampling and trilinear sampling in terms of antialiasing power.
+ </li>
     </ul>
     </p>
       
       <p>
-        We were unfortunately unable to get level sampling to properly produce the correct image as it displayed highly distorted colors with a lot of noise. 
-        Based on the errors that continually occurred, there are several potential sources of error for why this is occurring. 
+        Looking at these statistics, there are a few things we can observe about the tradeoffs among the three methods. 
       </p>
+      
+      <p>
+        Supersampling makes the antialiasing significantly better, blurring the edges and creating fewer jaggies due to it taking samples from a higher resolution of the original image. However, there is a huge tradeoff in performance as the speed becomes significantly slower and the memory usage gets significantly higher.
+
+      </p>
+      
+      <p>
+        Changing the pixel sampling method from nearest to bilinear pixel sampling can upgrade the antialiasing for jagged edges a bit. One tradeoff is that the amount of memory used can be a bit more as it usually went from around 70% to 80% CPU usage at level zero/nearest level sampling and from 82% to 84% CPU usage at bilinear level sampling. However, when it becomes trilinear sampling by pairing the method with nearest and bilinear level sampling, the tradeoff can be that it becomes a bit too blurred.
+
+      </p>
+      
+      <p>
+        Level sampling also has some antialiasing power although it is definitely not as strong as the differences in the other two methods. From the images we observed, there did not seem to be a huge difference between nearest level and bilinear level sampling. Memory usage and speed did not seem to change that much, but based on tiny differences, it did seem to be faster most likely due to it dealing with a lower resolution of an image and therefore less pixels.
+
+      </p>
+      
+      <div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/near1.png" align="middle" width="400px"/>
+        <figcaption align="middle">Nearest Sampling: 1 Sample per Pixel</figcaption>
+      </td>
+      <td>
+        <img src="images/near16.png" align="middle" width="400px"/>
+        <figcaption align="middle">Nearest Sampling: 16 Samples per Pixel</figcaption>
+      </td>
+    </tr>
+    <br>
+    <tr>
+      <td>
+        <img src="images/bi1.png" align="middle" width="400px"/>
+        <figcaption align="middle">Bilinear Sampling: 1 Sample per Pixel</figcaption>
+      </td>
+      <td>
+        <img src="images/bi16.png" align="middle" width="400px"/>
+        <figcaption align="middle">Bilinear Sampling: 16 Sample per Pixel</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>      
     
 
 
