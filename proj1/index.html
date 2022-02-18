@@ -33,11 +33,8 @@
 <div>
 
 <h2 align="middle">Overview</h2>
-<p> In this project we rasterized various svg images by individually rendering the triangles that make up the svg files. 
-  We implemented multiple methods of antialiasing with varying degrees of performance and quality. These include supersampling that takes multiple samples 
-  within a pixel to produce accurate colors, as well as pixel and level sampling methods that apply textures to fit within an object of a lower-resolution 
-  in the screen space. One interesting thing we learned from this project were the inner workings and mathematics behind how images are rendered and manipulated 
-  in visual softwares like Adobe Photoshop. 
+<p> In this project we rasterized various svg images by individually rendering the triangles that make up the svg files. We implemented multiple methods of antialiasing with varying degrees of performance and quality. These include supersampling that takes multiple samples within a pixel to produce accurate colors, as well as pixel and level sampling methods that apply textures to fit within an object of a lower-resolution in the screen space. One interesting thing we learned from this project was the inner workings and mathematics behind how images are rendered and manipulated in visual softwares and imaging on our computers. From our exposure to these visual editing softwares such as Adobe Photoshop, we were aware of the applications of antialiasing and rasterizing vector objects created via the Pen Tool or imports from vector illustration softwares on how it affects the image quality, so it was interesting to see on the fundamental level how the software interprets an image or drawing and determines what pixels get filled with which color values.
+
 </p>
 
 <h2 align="middle">Section I: Rasterization</h2>
@@ -52,7 +49,7 @@
   </p>
   
   <p>
-    This algorithm is no worse than the one that checks each sample within the bounding box of the triangle because my algorithm does exactly that. Therefore, it is no worse. 
+    This algorithm is no worse than the one that checks each sample within the bounding box of the triangle, because due to us using the three line test to check whether or not a pixel is in the triangle, it will never try to fill in pixels not within the triangle and only perform the fill_pixel function for only those within the triangle. 
   </p>
 
   <div style="display:flex;flex-direction:column;align-items:center;">
