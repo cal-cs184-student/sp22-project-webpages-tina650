@@ -147,8 +147,86 @@
 
     <h3 align="middle">Part 4: Half-edge flip</h3>
 
+        <p>
+          So first thing we did was create 2 HalfedgeIter variables, bc and cd, one for the halfedge 
+          of the passed in EdgeIter and another for the twin of that halfedge we just made. Then we check 
+          if either of the faces of those variables are on the boundary because if it is we just return a 
+          VertexIter. We then set variables to all the original elements- aka the halfedges, faces, and 
+          vertices -of the triangle. Then we made variables for all the new elements, all the new halfedges, 
+          faces, vertices, and edges. Then we reset some of the pointers to vertices, edges, and faces. 
+          Then we reset the pointers for the original halfedges on all the faces. 
+        </p>
+        
+         <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="image/flat.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Teapot Before Flips</figcaption>
+          </td>
+          <td>
+            <img src="image/flip.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Teapot After Flips</figcaption>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+        <p>
+          We did not realize that HalfedgeIter already had set pointers and we were trying to set them, 
+          so our code did not work since we were setting some pointers that were already set. This is 
+          very frustrating to debug. 
+        </p>
 
     <h3 align="middle">Part 5: Half-edge split</h3>
+        
+        <p>
+          Edge splitting was using a lot of similar concepts and implementation styles from edge flipping, 
+          but instead with a lot more pointers to manage. Using the visual example of the triangle given, 
+          we initially wrote down every mesh element that were in the original mesh as well as all mesh 
+          elements created after the split (including additional edges, vertices, halfedges, and faces). 
+          Afterwards, the task was mostly reliant on just setting pointers and making sure to assign the 
+          correct elements. 
+        </p>
+        
+        <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="image/flat.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Teapot Before Splits</figcaption>
+          </td>
+          <td>
+            <img src="image/split.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Teapot After Splits</figcaption>
+          </td>
+        </tr>
+      </table>
+    </div>
+        
+     <p>
+       For debugging or implementation tricks, we labeled the halfedges according to the abcd triangle 
+       image given, where the first letter corresponded to the source vertex and the second letter referred 
+       to the vertex that the halfedge was pointing to, which made it easier to visualize and manage 
+       pointers and how they related to each other. In the process of implementing this, we ran into 
+       multiple crashes, with errors sourced in the setNeighbors function. To figure out the source of 
+       the error, we set up a print statement preceding each call to see where it was occurring.
+     </p>
+        
+        <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="image/flat.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Teapot Before Flips and Splits</figcaption>
+          </td>
+          <td>
+            <img src="image/fns.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Teapot After Flips and Splits</figcaption>
+          </td>
+        </tr>
+      </table>
+    </div>
 
 
     <h3 align="middle">Part 6: Loop subdivision for mesh upsampling</h3>
