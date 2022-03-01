@@ -86,7 +86,7 @@
           </td>
           <td>
             <img src="image/6point_s5.PNG" align="middle" width="250px" />
-            <figcaption align="middle">Step 5</figcaption>
+            <figcaption align="middle">Final Evaluated Point</figcaption>
           </td>
         </tr>
       </table>
@@ -101,6 +101,18 @@
 
     <h3 align="middle">Part 2: Bezier surfaces with separable 1D de Casteljau subdivision</h3>
 
+      <p>
+      Along the Bazier surface it is just a bunch of Bezier curves in a grid formation. So since a 
+      Bazier surface is just made up of Bezier curves in order to evaluate the Bezier surfaces we 
+      basically ran the Casteljau algorithm twice. First you implantment it on each row where you
+      reduce each row to a single point so then we get a vector of all those points and then we for 
+      loop through it again and use casteljau to then get a singular point.
+      </p>
+      
+      <div style="display:flex;flex-direction:column;align-items:center;">
+  <img src="image/t2_f.PNG" style="width:375px;align:middle;"/>
+      <figcaption align="middle"> Teapot with Bezier Surfaces </figcaption>
+      
 
 
     <h2 align="middle">Section II: Sampling</h2>
