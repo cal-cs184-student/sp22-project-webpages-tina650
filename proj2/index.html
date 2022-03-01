@@ -118,6 +118,29 @@
     <h2 align="middle">Section II: Sampling</h2>
 
     <h3 align="middle">Part 3: Average normals for half-edge meshes</h3>
+        
+    <p>
+      To implement the area-weighted vertex normals we returned an approximate unit normal of the 
+      vertex. In order to do that we normalize the area-weighted average of the normals of the 
+      neighboring triangles. We implemented this with mainly a while loop and some simple 
+      arithmetic. To make sure we did not get duplicate faces in our normals, we used an if 
+      statement in the for loop to make sure we only add the twin to our normal count if the 
+      FaceCIter was not equal to the HalfedgeIter face. 
+    </p>
+        
+     <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="image/phong.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Teapot with Vertex Normals</figcaption>
+          </td>
+          <td>
+            <img src="image/flat.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Teapot without Vertex Normals</figcaption>
+          </td>
+        </tr>
+        
 
 
     <h3 align="middle">Part 4: Half-edge flip</h3>
