@@ -148,13 +148,12 @@
     <h3 align="middle">Part 4: Half-edge flip</h3>
 
         <p>
-          So first thing we did was create 2 HalfedgeIter variables, bc and cd, one for the halfedge 
-          of the passed in EdgeIter and another for the twin of that halfedge we just made. Then we check 
-          if either of the faces of those variables are on the boundary because if it is we just return a 
-          VertexIter. We then set variables to all the original elements- aka the halfedges, faces, and 
-          vertices -of the triangle. Then we made variables for all the new elements, all the new halfedges, 
-          faces, vertices, and edges. Then we reset some of the pointers to vertices, edges, and faces. 
-          Then we reset the pointers for the original halfedges on all the faces. 
+          So first thing we did was create 2 HalfedgeIter variables, bc and cd, one for the halfedge of 
+          the passed in EdgeIter and another for the twin of that halfedge we just made. Then we check 
+          if either of the faces of those variables are on the boundary because if it is we just return
+          the passed in EdgeIter. We then set variables to all the halfedges of the non-twin side and 
+          twin side. Then we set variables to all the faces and vertices. After that we reset the pointers 
+          for the vertices, flipped halfedges, other halfedges, and faces. 
         </p>
         
          <div align="middle">
@@ -165,7 +164,7 @@
             <figcaption align="middle">Teapot Before Flips</figcaption>
           </td>
           <td>
-            <img src="image/flip.PNG" align="middle" width="250px" />
+            <img src="image/flips.PNG" align="middle" width="250px" />
             <figcaption align="middle">Teapot After Flips</figcaption>
           </td>
         </tr>
