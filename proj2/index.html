@@ -30,7 +30,8 @@
 
   <h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2020</h1>
   <h1 align="middle">Project 2: Mesh Editor</h1>
-  <h2 align="middle">YOUR NAME, CS184-??</h2>
+  <h2 align="middle">Tina Li & Daniel Won, CS184-aax & CS184-ack</h2>
+  <h3 align="middle"><a href="https://cal-cs184-student.github.io/sp22-project-webpages-tina650/proj2/index.html">https://cal-cs184-student.github.io/sp22-project-webpages-tina650/proj2/index.html</a></h3>
 
   <br><br>
 
@@ -43,36 +44,62 @@
     <h2 align="middle">Section I: Bezier Curves and Surfaces</h2>
 
     <h3 align="middle">Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
+    
+    <p>
+      Casteljau’s algorithm is a recursive way to draw a curve using linear interpolation. When given n control points and the parameter <i>t </i>, we can compute the n - 1 
+      intermediate control point at <i>t </i> using linear interpolation. Basically, we run this recursively and will get a point that lies on the Bezier curve at the given 
+      <i>t </i> parameter since the trajectory of the curve is dependent on the variable <i>t </i>. To compute this we created a for loop where we iterate through all the points and 
+      everytime we do we add a new point to our new point vector2D, the new point is founded by (1 - <i>t </i>) * current point + <i>t </i> * next point. Then we return the 2Dvector 
+      of new points.
+    </p>
 
     <p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a
       column in that row. You might find this useful for framing and showing your result images in an organized fashion.
     </p>
+    
+    <h5> align="middle">Bezier curve: 6 Original Control Points </h5>
 
     <div align="middle">
       <table style="width=100%">
         <tr>
           <td>
             <img src="images/image1.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Step 0</figcaption>
           </td>
           <td>
             <img src="images/image2.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Step 1</figcaption>
+          </td>
+          <td>
+            <img src="images/image1.png" align="middle" width="400px" />
+            <figcaption align="middle">Step 2</figcaption>
           </td>
         </tr>
+        
         <br>
+        
         <tr>
           <td>
             <img src="images/image3.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Step 3</figcaption>
+          </td>
+          <td>
+            <img src="images/image1.png" align="middle" width="400px" />
+            <figcaption align="middle">Step 4</figcaption>
           </td>
           <td>
             <img src="images/image4.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Step 5</figcaption>
           </td>
         </tr>
       </table>
     </div>
+    
+    <br> <br>
+    
+    <div style="display:flex;flex-direction:column;align-items:center;">
+  <img src="images/basic_test6.PNG" style="width:375px; height:500px;align:middle;"/>
+      <figcaption align="middle"> Bezier curve: Modified <i>t</i> </figcaption>
 
 
     <h3 align="middle">Part 2: Bezier surfaces with separable 1D de Casteljau subdivision</h3>
