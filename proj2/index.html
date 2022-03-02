@@ -274,6 +274,13 @@
       </table>
     </div>
         
+        
+        
+        <p>
+          As given in the specs and in lecture, the traversal of mesh elements goes in a counterclockwise direction and is limited within a given triangular face. When looking at each face of the cube, we also see that there are two faces that are not symmetrical about the vertical axis but rather symmetrical about a diagonal. As we continue carrying out loop subdivision, the subdivision will not span across faces but rather be happening within each face, which already starts off asymmetrical. Therefore, to make the subdivision occur symmetrically, the faces of the cube must also be symmetrical. For example, one thing we can do is split the inner diagonal edges of every face to create an “X” shape for the edges. Given that, the subdivision will occur symmetrically within these shapes and therefore symmetrically about the center/vertical axis.
+
+        </p>
+        
         <div align="middle">
       <table style="width=100%">
         <tr>
@@ -299,11 +306,6 @@
         </tr>
       </table>
     </div>
-        
-        <p>
-          As given in the specs and in lecture, the traversal of mesh elements goes in a counterclockwise direction and is limited within a given triangular face. When looking at each face of the cube, we also see that there are two faces that are not symmetrical about the vertical axis but rather symmetrical about a diagonal. As we continue carrying out loop subdivision, the subdivision will not span across faces but rather be happening within each face, which already starts off asymmetrical. Therefore, to make the subdivision occur symmetrically, the faces of the cube must also be symmetrical. For example, one thing we can do is split the inner diagonal edges of every face to create an “X” shape for the edges. Given that, the subdivision will occur symmetrically within these shapes and therefore symmetrically about the center/vertical axis.
-
-        </p>
 
 
     <h2 align="middle">Section III: Optional Extra Credit</h2>
