@@ -38,8 +38,15 @@
   <div>
 
     <h2 align="middle">Overview</h2>
-    <p>Give a high-level overview of what you implemented in this project. Think about what you've built as a whole.
-      Share your thoughts on what interesting things you've learned from completing the project.</p>
+    <p>In this project, we implemented the mechanics of creating the geometry for Bezier curves as well as 3D models via triangular faces. First, we implemented de Casteljau’s 
+      algorithm which allowed us to estimate the geometry of a curve by recursively narrowing down points through given parameters. We also built functionalities to edit the 
+      triangular faces of a 3D model to display smooth shading or conduct edge splitting/flipping to do loop subdivision that makes the model more high-resolution.
+    </p>
+    <p>
+      Having used the Blender software before with its subdivision tools and being aware of how the smoothness of a 3D model is determined by the number of faces (especially when 
+      using a freehand sculpt tool), this project was an interesting look into how these functionalities worked and were implemented. Additionally, being familiar with Bezier 
+      curves through 2D softwares like Illustrator as well as 3D software like Blender, 
+    </p>
 
     <h2 align="middle">Section I: Bezier Curves and Surfaces</h2>
 
@@ -132,12 +139,12 @@
       <table style="width=100%">
         <tr>
           <td>
-            <img src="image/phong.PNG" align="middle" width="250px" />
-            <figcaption align="middle">Teapot with Vertex Normals</figcaption>
-          </td>
-          <td>
             <img src="image/flat.PNG" align="middle" width="250px" />
             <figcaption align="middle">Teapot without Vertex Normals</figcaption>
+          </td>
+          <td>
+            <img src="image/phong.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Teapot with Vertex Normals</figcaption>
           </td>
         </tr>
       </table>
@@ -229,7 +236,96 @@
 
 
     <h3 align="middle">Part 6: Loop subdivision for mesh upsampling</h3>
-
+        
+        <p>
+          For the implementation, we followed the suggested steps given in the instructions. First, we calculated 
+          the new positions of the original vertices as well as the new vertices to be added via split operations 
+          using the given formulas (For old vertices, we used the formula of (1 - n * u) * original_position + u * 
+          original_neighbor_position_sum, and for new vertices splitting an edge (A,B) between triangles (A,C,B) and 
+          (A,B,D), we used the formula is 3/8 * (A+B) + 1/8 * (C+D)). Next, we split all of the original edges and 
+          flipped any new edge that connects an old and a new vertex. We ran into some initial problems in terms of 
+          which edges were being flipped and the overall model ending up with strange jagged geometry and holes.
+        </p>
+        
+        <p>
+          To debug this, believing it to be issues regarding the position assignment or edge flips, we used cout print 
+          statements before and after specific segments of modifying or assignment code within each step to see how the 
+          position changed and noticed how all of the new vertices were returning (0,0,0) as their position. We then found 
+          out that in the implementation of the formula to assign new vertices that we had evaluated the fractions 3/8 and 
+          1/8 (which were ints and therefore would return 0) before multiplying them to the sums of each pair of vertices. 
+          Additionally, we felt that the program was flipping edges too many times, so we also counted how many times the 
+          while loop for flipping edges ran and compared that with how many times the while loop for edge splitting ran. As 
+          both returned the same amount which should not happen, we realized several errors including forgetting to check for 
+          if an edge was a new edge before running flipEdge as well as forgetting to make both of the edges from a split edge 
+          be considered as “old edges”. After debugging, it eventually worked as intended.
+        </p>
+        
+        <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="image/611.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Loop Subdivision 0</figcaption>
+          </td>
+          <td>
+            <img src="image/612.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Loop Subdivision 1</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="image/613.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Loop Subdivision 2</figcaption>
+          </td>
+          <td>
+            <img src="image/614.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Loop Subdivision 3</figcaption>
+          </td>
+        </tr>
+      </table>
+    </div>
+        
+        <p>
+          As we conduct more loop subdivisions, the sharp corners and edges become “smoother” or “flatter”, as seen by how the 
+          cube and its sharp edges gradually become more sphere-like.
+        </p>
+        
+        <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="image/621.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Cube 0</figcaption>
+          </td>
+          <td>
+            <img src="image/622.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Cube 1</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="image/623.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Cube 2</figcaption>
+          </td>
+          <td>
+            <img src="image/624.PNG" align="middle" width="250px" />
+            <figcaption align="middle">Cube 3</figcaption>
+          </td>
+        </tr>
+      </table>
+    </div>
+        
+        <p>
+          As given in the specs and in lecture, the traversal of mesh elements goes in a counterclockwise direction and is limited 
+          within a given triangular face. When looking at each face of the cube, we also see that there are two faces that are not 
+          symmetrical about the vertical axis but rather symmetrical about a diagonal. As we continue carrying out loop subdivision, 
+          the subdivision will not span across faces but rather be happening within each face, which already starts off asymmetrical. 
+          Therefore, to make the subdivision occur symmetrically, the faces of the cube must also be symmetrical. For example, one 
+          thing we can do is split the inner diagonal edges of every face to create an “X” shape for the edges. Given that, the subdivision 
+          will occur symmetrically within these shapes and therefore symmetrically about the center/vertical axis.
+        </p>
 
 
     <h2 align="middle">Section III: Optional Extra Credit</h2>
