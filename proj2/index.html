@@ -98,7 +98,7 @@
       </table>
     </div>
     
-    <br> <br><br><br>
+    <br> <br><br><br><br> <br>
     
     <div style="display:flex;flex-direction:column;align-items:center;">
   <img src="image/new6p.PNG" style="width:375px;align:middle;"/>
@@ -150,6 +150,7 @@
          So first thing we did was create 2 HalfedgeIter variables, bc and cd, one for the halfedge of the passed in EdgeIter and another for the twin of that halfedge we just made. Then we check if either of the faces of those variables are on the boundary because if it is we just return the passed in EdgeIter. We then set variables to all the halfedges of the non-twin side and twin side. Then we set variables to all the faces and vertices. After that we reset the pointers for the vertices, flipped halfedges, other halfedges, and faces. 
 
         </p>
+          <br> <br><br><br><br> <br><br><br>
         
          <div align="middle">
       <table style="width=100%">
@@ -223,6 +224,7 @@
           To debug this, believing it to be issues regarding the position assignment or edge flips, we used cout print statements before and after specific segments of modifying or assignment code within each step to see how the position changed and noticed how all of the new vertices were returning (0,0,0) as their position. We then found out that in the implementation of the formula to assign new vertices that we had evaluated the fractions 3/8 and 1/8 (which were ints and therefore would return 0) before multiplying them to the sums of each pair of vertices. Additionally, we felt that the program was flipping edges too many times, so we also counted how many times the while loop for flipping edges ran and compared that with how many times the while loop for edge splitting ran. As both returned the same amount which should not happen, we realized several errors including forgetting to check for if an edge was a new edge before running flipEdge as well as forgetting to make both of the edges from a split edge be considered as “old edges”. After debugging, it eventually worked as intended.
 
         </p>
+          <br> <br><br><br><br> <br><br><br>
         
         <div align="middle">
       <table style="width=100%">
