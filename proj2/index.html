@@ -38,15 +38,13 @@
   <div>
 
     <h2 align="middle">Overview</h2>
-    <p>In this project, we implemented the mechanics of creating the geometry for Bezier curves as well as 3D models via triangular faces. First, we implemented de Casteljau’s 
-      algorithm which allowed us to estimate the geometry of a curve by recursively narrowing down points through given parameters. We also built functionalities to edit the 
-      triangular faces of a 3D model to display smooth shading or conduct edge splitting/flipping to do loop subdivision that makes the model more high-resolution.
+    <p>
+      In this project, we implemented the mechanics of creating the geometry for Bezier curves as well as 3D models via triangular faces. First, we implemented de Casteljau’s algorithm which allowed us to estimate the geometry of a curve by recursively narrowing down points through given parameters. We also built functionalities to edit the triangular faces of a 3D model to display smooth shading or conduct edge splitting/flipping to do loop subdivision that makes the model more high-resolution.
+
     </p>
     <p>
-      Having used the Blender software before with its subdivision tools and being aware of how the smoothness of a 3D model is determined by the number of faces (especially when 
-      using a freehand sculpt tool), this project was an interesting look into how these functionalities worked and were implemented. Additionally, being familiar with Bezier 
-      curves through 2D softwares like Illustrator as well as 3D software like Blender, it was interesting to learn about the recursive de Casteljau algorithm and how it can 
-      produce curves based on where the points are and what parameter we use.
+      Having used the Blender software before with its subdivision tools and being aware of how the smoothness of a 3D model is determined by the number of faces (especially when using a freehand sculpt tool), this project was an interesting look into how these functionalities worked and were implemented. Additionally, being familiar with Bezier curves through 2D softwares like Adobe Illustrator as well as 3D software like Blender, it was interesting to learn about the recursive de Casteljau algorithm and how it can produce curves based on where the points are and what parameter we use.
+
     </p>
 
     <h2 align="middle">Section I: Bezier Curves and Surfaces</h2>
@@ -110,11 +108,8 @@
     <h3 align="middle">Part 2: Bezier surfaces with separable 1D de Casteljau subdivision</h3>
 
       <p>
-      Along the Bazier surface it is just a bunch of Bezier curves in a grid formation. So since a 
-      Bazier surface is just made up of Bezier curves in order to evaluate the Bezier surfaces we 
-      basically ran the Casteljau algorithm twice. First you implantment it on each row where you
-      reduce each row to a single point so then we get a vector of all those points and then we for 
-      loop through it again and use casteljau to then get a singular point.
+     Along the Bazier surface it is just a bunch of Bezier curves in a grid formation. So since a Bazier surface is just made up of Bezier curves in order to evaluate the Bezier surfaces we basically ran the Casteljau algorithm twice. First you implantment it on each row where you reduce each row to a single point so then we get a vector of all those points and then we for loop through it again and use casteljau to then get a singular point.
+
       </p>
       
       <div style="display:flex;flex-direction:column;align-items:center;">
@@ -128,12 +123,8 @@
     <h3 align="middle">Part 3: Average normals for half-edge meshes</h3>
         
     <p>
-      To implement the area-weighted vertex normals we returned an approximate unit normal of the 
-      vertex. In order to do that we normalize the area-weighted average of the normals of the 
-      neighboring triangles. We implemented this with mainly a while loop and some simple 
-      arithmetic. To make sure we did not get duplicate faces in our normals, we used an if 
-      statement in the for loop to make sure we only add the twin to our normal count if the 
-      FaceCIter was not equal to the HalfedgeIter face. 
+      To implement the area-weighted vertex normals we returned an approximate unit normal of the vertex. In order to do that we normalize the area-weighted average of the normals of the neighboring triangles. We implemented this with mainly a while loop and some simple arithmetic. To make sure we did not get duplicate faces in our normals, we used an if statement in the for loop to make sure we only add the twin to our normal count if the FaceCIter was not equal to the HalfedgeIter face. 
+
     </p>
         
      <div align="middle">
@@ -156,12 +147,8 @@
     <h3 align="middle">Part 4: Half-edge flip</h3>
 
         <p>
-          So first thing we did was create 2 HalfedgeIter variables, bc and cd, one for the halfedge of 
-          the passed in EdgeIter and another for the twin of that halfedge we just made. Then we check 
-          if either of the faces of those variables are on the boundary because if it is we just return
-          the passed in EdgeIter. We then set variables to all the halfedges of the non-twin side and 
-          twin side. Then we set variables to all the faces and vertices. After that we reset the pointers 
-          for the vertices, flipped halfedges, other halfedges, and faces. 
+         So first thing we did was create 2 HalfedgeIter variables, bc and cd, one for the halfedge of the passed in EdgeIter and another for the twin of that halfedge we just made. Then we check if either of the faces of those variables are on the boundary because if it is we just return the passed in EdgeIter. We then set variables to all the halfedges of the non-twin side and twin side. Then we set variables to all the faces and vertices. After that we reset the pointers for the vertices, flipped halfedges, other halfedges, and faces. 
+
         </p>
         
          <div align="middle">
@@ -180,20 +167,14 @@
     </div>
 
         <p>
-          We did not realize that HalfedgeIter already had set pointers and we were trying to set them, 
-          so our code did not work since we were setting some pointers that were already set. This is 
-          very frustrating to debug. 
+          We did not realize that HalfedgeIter already had set pointers and we were trying to set them, so our code did not work since we were setting some pointers that were already set. This is very frustrating to debug. 
+
         </p>
 
     <h3 align="middle">Part 5: Half-edge split</h3>
         
         <p>
-          Edge splitting was using a lot of similar concepts and implementation styles from edge flipping, 
-          but instead with a lot more pointers to manage. Using the visual example of the triangle given, 
-          we initially wrote down every mesh element that were in the original mesh as well as all mesh 
-          elements created after the split (including additional edges, vertices, halfedges, and faces). 
-          Afterwards, the task was mostly reliant on just setting pointers and making sure to assign the 
-          correct elements. 
+          Edge splitting was using a lot of similar concepts and implementation styles from edge flipping, but instead with a lot more pointers to manage. Using the visual example of the triangle given, we initially wrote down every mesh element that were in the original mesh as well as all mesh elements created after the split (including additional edges, vertices, halfedges, and faces). Afterwards, the task was mostly reliant on just setting pointers and making sure to assign the correct elements. 
         </p>
         
         <div align="middle">
@@ -212,12 +193,8 @@
     </div>
         
      <p>
-       For debugging or implementation tricks, we labeled the halfedges according to the abcd triangle 
-       image given, where the first letter corresponded to the source vertex and the second letter referred 
-       to the vertex that the halfedge was pointing to, which made it easier to visualize and manage 
-       pointers and how they related to each other. In the process of implementing this, we ran into 
-       multiple crashes, with errors sourced in the setNeighbors function. To figure out the source of 
-       the error, we set up a print statement preceding each call to see where it was occurring.
+       For debugging or implementation tricks, we labeled the halfedges according to the abcd triangle image given, where the first letter corresponded to the source vertex and the second letter referred to the vertex that the halfedge was pointing to, which made it easier to visualize and manage pointers and how they related to each other. In the process of implementing this, we ran into multiple crashes, with errors sourced in the setNeighbors function. To figure out the source of the error, we set up a print statement preceding each call to see where it was occurring.
+
      </p>
         
         <div align="middle">
@@ -239,26 +216,12 @@
     <h3 align="middle">Part 6: Loop subdivision for mesh upsampling</h3>
         
         <p>
-          For the implementation, we followed the suggested steps given in the instructions. First, we calculated 
-          the new positions of the original vertices as well as the new vertices to be added via split operations 
-          using the given formulas (For old vertices, we used the formula of (1 - n * u) * original_position + u * 
-          original_neighbor_position_sum, and for new vertices splitting an edge (A,B) between triangles (A,C,B) and 
-          (A,B,D), we used the formula is 3/8 * (A+B) + 1/8 * (C+D)). Next, we split all of the original edges and 
-          flipped any new edge that connects an old and a new vertex. We ran into some initial problems in terms of 
-          which edges were being flipped and the overall model ending up with strange jagged geometry and holes.
+          For the implementation, we followed the suggested steps given in the instructions. First, we calculated the new positions of the original vertices as well as the new vertices to be added via split operations using the given formulas (For old vertices, we used the formula of (1 - n * u) * original_position + u * original_neighbor_position_sum, and for new vertices splitting an edge (A,B) between triangles (A,C,B) and (A,B,D), we used the formula is 3/8 * (A+B) + 1/8 * (C+D)). Next, we split all of the original edges and flipped any new edge that connects an old and a new vertex. We ran into some initial problems in terms of which edges were being flipped and the overall model ending up with strange jagged geometry and holes.
         </p>
         
         <p>
-          To debug this, believing it to be issues regarding the position assignment or edge flips, we used cout print 
-          statements before and after specific segments of modifying or assignment code within each step to see how the 
-          position changed and noticed how all of the new vertices were returning (0,0,0) as their position. We then found 
-          out that in the implementation of the formula to assign new vertices that we had evaluated the fractions 3/8 and 
-          1/8 (which were ints and therefore would return 0) before multiplying them to the sums of each pair of vertices. 
-          Additionally, we felt that the program was flipping edges too many times, so we also counted how many times the 
-          while loop for flipping edges ran and compared that with how many times the while loop for edge splitting ran. As 
-          both returned the same amount which should not happen, we realized several errors including forgetting to check for 
-          if an edge was a new edge before running flipEdge as well as forgetting to make both of the edges from a split edge 
-          be considered as “old edges”. After debugging, it eventually worked as intended.
+          To debug this, believing it to be issues regarding the position assignment or edge flips, we used cout print statements before and after specific segments of modifying or assignment code within each step to see how the position changed and noticed how all of the new vertices were returning (0,0,0) as their position. We then found out that in the implementation of the formula to assign new vertices that we had evaluated the fractions 3/8 and 1/8 (which were ints and therefore would return 0) before multiplying them to the sums of each pair of vertices. Additionally, we felt that the program was flipping edges too many times, so we also counted how many times the while loop for flipping edges ran and compared that with how many times the while loop for edge splitting ran. As both returned the same amount which should not happen, we realized several errors including forgetting to check for if an edge was a new edge before running flipEdge as well as forgetting to make both of the edges from a split edge be considered as “old edges”. After debugging, it eventually worked as intended.
+
         </p>
         
         <div align="middle">
@@ -288,9 +251,28 @@
     </div>
         
         <p>
-          As we conduct more loop subdivisions, the sharp corners and edges become “smoother” or “flatter”, as seen by how the 
-          cube and its sharp edges gradually become more sphere-like.
+          As we conduct more loop subdivisions, the sharp corners and edges become “smoother” or “flatter”, as seen by how the cube and its sharp edges gradually become more sphere-like. We can reduce this effect by splitting multiple edges near a sharp edge or corner so that we establish for sharp edges a highly subdivided face, which when conducting loop subdivision will not significantly adjust its sharpness much.
+
         </p>
+        
+         <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="image/1.png" align="middle" width="250px" />
+            <figcaption align="middle">Sharp Edge 0</figcaption>
+          </td>
+          <td>
+            <img src="image/2.png" align="middle" width="250px" />
+            <figcaption align="middle">Sharp Edge 1</figcaption>
+          </td>
+          <td>
+            <img src="image/3.png" align="middle" width="250px" />
+            <figcaption align="middle">Sharp Edge 2</figcaption>
+          </td>
+        </tr>
+      </table>
+    </div>
         
         <div align="middle">
       <table style="width=100%">
@@ -319,13 +301,8 @@
     </div>
         
         <p>
-          As given in the specs and in lecture, the traversal of mesh elements goes in a counterclockwise direction and is limited 
-          within a given triangular face. When looking at each face of the cube, we also see that there are two faces that are not 
-          symmetrical about the vertical axis but rather symmetrical about a diagonal. As we continue carrying out loop subdivision, 
-          the subdivision will not span across faces but rather be happening within each face, which already starts off asymmetrical. 
-          Therefore, to make the subdivision occur symmetrically, the faces of the cube must also be symmetrical. For example, one 
-          thing we can do is split the inner diagonal edges of every face to create an “X” shape for the edges. Given that, the subdivision 
-          will occur symmetrically within these shapes and therefore symmetrically about the center/vertical axis.
+          As given in the specs and in lecture, the traversal of mesh elements goes in a counterclockwise direction and is limited within a given triangular face. When looking at each face of the cube, we also see that there are two faces that are not symmetrical about the vertical axis but rather symmetrical about a diagonal. As we continue carrying out loop subdivision, the subdivision will not span across faces but rather be happening within each face, which already starts off asymmetrical. Therefore, to make the subdivision occur symmetrically, the faces of the cube must also be symmetrical. For example, one thing we can do is split the inner diagonal edges of every face to create an “X” shape for the edges. Given that, the subdivision will occur symmetrically within these shapes and therefore symmetrically about the center/vertical axis.
+
         </p>
 
 
