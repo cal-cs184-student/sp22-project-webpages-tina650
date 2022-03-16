@@ -32,6 +32,20 @@
             We used these values to create the final ray. After that we set final ray’s min and max t values to nClip and fClip. Then we return final ray. 
         </p>
         
+        <p align="middle"><pre align="middle">r(<i>t</i>) = o + <i>t</i>d</pre></p>
+        <p align="middle"><pre align="middle">p: (p - c)^2 - R^2 = 0</pre></p>
+    <p> Then we solve for intersection by setting</p>
+    <p align="middle"><pre align="middle">(o + <i>t</i>d - c)^2 - R^2 = 0</pre></p>
+    <p align="middle"><pre align="middle"></pre></p>
+<p>
+    In which we use r(<i>t</i>) = o + <i>t</i>d to find a, b, and c. We also use the quadratic formula to solve for t.
+</p>
+        
+        <p>
+            For our primitive intersections parts we implemented a Moller Trumbore Algorithm for ray-triangles 
+            intersection and used the ray intersection with sphere. For the latter we used 
+        </p>
+        
         <div align="center">
             <table style="width=100%">
                 <tr>
