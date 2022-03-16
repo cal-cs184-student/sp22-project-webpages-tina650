@@ -25,6 +25,59 @@
         <p>If you are well-versed in web development, feel free to ditch this template and make a better looking page. Just make sure that you include all the components as we've laid them out here. </p>
 
     <h2 align="middle">Part 1: Ray Generation and Intersection</h2>
+        
+        <p>
+            In order to generate a ray, we first changed the hFov and vFov into radians. Then we calculated the max y and y’s by basically taking the tan of half the hFov and vFov. 
+            Then, we offset the image by 0.5 x and y. We also then scaled it by dividing the max x and y by 0.5. Then we took those scaled values and multiplied them by the offsets. 
+            We used these values to create the final ray. After that we set final ray’s min and max t values to nClip and fClip. Then we return final ray. 
+        </p>
+        
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/al.png" width="480px" />
+                    <figcaption align="middle">Moller Trumbore Algorithm</figcaption>
+                </tr>
+            </table>
+        </div>
+        
+        <p>
+            We used the Moller Trumbore Algorithm to implement the ray-triangle intersection algorithms. We first made some Vector3D variables such as e1, e2, s, s1, and s2. 
+            We then set a Vector3D for the resultant vector after we use the algorithm. Then from that vector we extracted t, b1, and b2. Then we checked if the point was in 
+            the triangle using barycentric coordinates, by checking if b1 and b2 were positive and if b1 + b2 was smaller than 1. We also checked if the t was greater than 
+            the ray’s min t and less than the ray’s max t. If the point was indeed inside the triangle, then we would set the ray’s max t to the resultant vector’s t and 
+            return true. If not, then we returned false.
+        </p>
+      
+        
+        <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="images/plane.png" align="middle" width="300px" />
+            <figcaption align="middle"Plane</figcaption>
+          </td>
+          <td>
+            <img src="images/cube.png" align="middle" width="300px" />
+            <figcaption align="middle">Cube</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="images/balls.png" align="middle" width="300px" />
+            <figcaption align="middle">Balls</figcaption>
+            </td>
+            <td>
+            <img src="images/gems.png" align="middle" width="300px" />
+            <figcaption align="middle">Gems</figcaption>
+          </td>
+        </tr>
+      </table>
+    </div>
+        
+        
         <p>Describe what you did in Part 1. etc...</p>
         <div align="center">
             <table style="width=100%">
