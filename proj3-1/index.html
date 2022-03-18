@@ -90,6 +90,85 @@
         </tr>
       </table>
     </div>
+
+ <h2 align="middle">Part 2: Bounding Volume Hierarchy/h2>
+     
+     <p>
+         For the most part, we followed the given specifications to implement our BVH construction 
+         algorithm. The condition for which a given node is a leaf was if the number of primitives 
+         that we iterated through was less than the provided max_leaf_size parameter, in which we 
+         would simply set the start and end of the node to the given start and end iterators and 
+         return the node. If the node was not a leaf, we would have to split the primitives into 
+         left and right partitions of data, assigning the l and r to recursive calls to 
+         construct_bvh, taking in data up to the splitting point and the data from the splitting 
+         point to the end respectively. For choosing the splitting point, we first determined the
+         average of all the centroids to act as the point that splits the data into two. However, 
+         we had to then determine the best axis we would need to use to figure out which conditions 
+         would be used for categorizing left and right data. To start, we calculated the minimum 
+         and maximum x, y, and z values, and from this we determined the range of each axis by 
+         subtracting each component’s maximum and minimum. Whichever axis has the largest range 
+         would be the one to split as it would be most beneficial to split a longer range of data 
+         rather than splitting thinner sets of data. After finding the axis, we used std::partition 
+         to partition the primitives by selecting the left data as all those whose component of the 
+         chosen axis was less than the average midpoint along our chosen axis. 
+     </p>
+     
+      <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="images/lucy.png" align="middle" width="360px" />
+            <figcaption align="middle">Statue</figcaption>
+          </td>
+          <td>
+            <img src="images/man.png" align="middle" width="360px" />
+            <figcaption align="middle">Man</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="pica/.png" align="middle" width="360px" />
+            <figcaption align="middle"></figcaption>
+            </td>
+            <td>
+            <img src="images/picb.png" align="middle" width="360px" />
+            <figcaption align="middle"></figcaption>
+          </td>
+        </tr>
+      </table>
+    </div>
+     
+     <p>
+         When rendering with the BVH acceleration the cow only takes 1.8284s, but without it 
+         takes 78.0784s. Similarly the rendering for the teapot with BVH acceleration is only 
+         2.473s, while without it is 151.0347s. These would render faster, but my computer is 
+         not the best. The BVH acceleration speeds up the rendering by using recursion to 
+         divide the work rather than going through all the primitives indualvidual. It splits 
+         up the work. Therefore bring the runtime down from <i>O(n)O(n) to O(log(n))O(log(n))</i>.
+     </p>
+     
+     <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="images/cow2.png" align="middle" width="360px" />
+            <figcaption align="middle">Cow</figcaption>
+          </td>
+          <td>
+            <img src="images/teapot.png" align="middle" width="360px" />
+            <figcaption align="middle">Teapot</figcaption>
+          </td>
+        </tr>
+         </table>
+     </div>
+     
+     
+ <h2 align="middle">Part 3: Direct Illumination/h2>
+      
+ <h2 align="middle">Part 4: Global Illumination/h2>
+           
+ <h2 align="middle">Part 5: Adaptive Sampling/h2>
         
         
         <p>Describe what you did in Part 1. etc...</p>
