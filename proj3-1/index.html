@@ -125,17 +125,6 @@
             <figcaption align="middle">Man</figcaption>
           </td>
         </tr>
-        <br>
-        <tr>
-          <td>
-            <img src="pica/.png" align="middle" width="360px" />
-            <figcaption align="middle"></figcaption>
-            </td>
-            <td>
-            <img src="images/picb.png" align="middle" width="360px" />
-            <figcaption align="middle"></figcaption>
-          </td>
-        </tr>
       </table>
     </div>
      
@@ -255,37 +244,33 @@ We implemented this similar to the one for uniform hemisphere. The differences a
 
       
  <h2 align="middle">Part 4: Global Illumination</h2>
+
+<p>
+    For the indirect lighting function, we had to implement two functions: at_least_one_bounce_radiance 
+    and est_radiance_global_illumination. In at_least_one_bounce_radiance, our implementation 
+    was similar to that of one_bounce_radiance in part 3 in that we used the given reflectance 
+    function. However, this time, given certain conditions, we would recursively call the function
+    to continually bounce to give more accurate rendering results. As mentioned in the spec, 
+    these conditions are (1) the Russian roulette, in which we use a cpdf (or a continuous pdf 
+    that is the complement of a termination probability) to calculate a random choice between 
+    0 and 1 using the function coin_flip (to test if a random value between 0 and 1 is less 
+    than the cpdf) to see if we will bounce once we begin reaching the maximum number of 
+    bounces, and (2) max_ray_depth, or the maximum number of bounces allowed, is greater 
+    than 1 in which the function will always continue with bouncing regardless of the Russian 
+    roulette results. This, of course, would end regardless once the number of bounces 
+    surpasses the maximum number of bounces defined by max_ray_depth. If the depth is 0, 
+    we would just return Vector3D(0,0,0). We then add the result returned by this function 
+    to the overall reflectance in est_radiance_global_illumination.
+</p>
            
  <h2 align="middle">Part 5: Adaptive Sampling</h2>
         
+<p>
+    For adaptive sampling, we limit the number of samples we take per pixel and instead focus more samples on pixels that need more samples for higher accuracy in order to reduce noise. To do so, we record several new variables including the current number of samples (which we increment until we decide to converge), s1 and s2 (which is the sum of illuminance values of the radiance and the same sum squared respectively), as well as the mean and standard deviation of the illuminance values and the convergence, which we calculate to be I = 1.96 * standard deviation / sqrt(curr_num_samples). To reduce the amount of computations, we also calculate convergences in batches of samplesPerBatch values, summing up s1 and s2 for each batch and after each batch computing the convergence. If the convergence I is less than or equal to the given maxTolerance * mean, we would stop generating rays and update the pixel with the color still calculated as the average radiance.
+
+</p>
         
-        <p>Describe what you did in Part 1. etc...</p>
-        <div align="center">
-            <table style="width=100%">
-                <tr>
-                    <td align="middle">
-                    <img src="images/example_image.png" width="480px" />
-                    <figcaption align="middle">Results Caption: my bunny is the bounciest bunny</figcaption>
-                </tr>
-            </table>
-        </div>
-        <p>Here is an example of how to include a simple formula:</p>
-        <p align="middle"><pre align="middle">a^2 + b^2 = c^2</pre></p>
-        <p>or, alternatively, you can include an SVG image of a LaTex formula.</p>
-        <p>This time it's your job to copy-paste in the rest of the sections :)</p>
-
-
-
-    <h2 align="middle">A Few Notes On Webpages</h2>
-        <p>Here are a few problems students have encountered in the past. You will probably encounter these problems at some point, so don't wait until right before the deadline to check that everything is working. Test your website on the instructional machines early!</p>
-        <ul>
-        <li>Your main report page should be called index.html.</li>
-        <li>Be sure to include and turn in all of the other files (such as images) that are linked in your report!</li>
-        <li>Use only <em>relative</em> paths to files, such as <pre>"./images/image.jpg"</pre>
-        Do <em>NOT</em> use absolute paths, such as <pre>"/Users/student/Desktop/image.jpg"</pre></li>
-        <li>Pay close attention to your filename extensions. Remember that on UNIX systems (such as the instructional machines), capitalization matters. <pre>.png != .jpeg != .jpg != .JPG</pre>
-        <li>Be sure to adjust the permissions on your files so that they are world readable. For more information on this please see this tutorial: <a href="http://www.grymoire.com/Unix/Permissions.html">http://www.grymoire.com/Unix/Permissions.html</a></li>
-        <li>And again, test your website on the instructional machines early!</li>
+ 
 </div>
 </body>
 </html>
