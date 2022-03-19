@@ -165,6 +165,94 @@
 
      
  <h2 align="middle">Part 3: Direct Illumination</h2>
+
+<div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="images/CBbunny_H_64_32.png" align="middle" width="360px" />
+            <figcaption align="middle">Uniform Hemisphere: Bunny</figcaption>
+          </td>
+          <td>
+            <img src="images/bunny_64rays.png" align="middle" width="360px" />
+            <figcaption align="middle">Importance: Bunny</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="images/CBspheres_lambertian_H_64_32.png" align="middle" width="360px" />
+            <figcaption align="middle">Uniform Hemisphere: Balls</figcaption>
+            </td>
+            <td>
+            <img src="images/spheres_importance_sampling_64rays.png" align="middle" width="360px" />
+            <figcaption align="middle">Importance: Balls</figcaption>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+<p>
+    <b>Uniform Hemisphere Sampling:</b> 
+    First, we make a coordinate system for a hit point, and make sure that N is aligned with 
+    the Z direction. Then we make w_out, which points towards the source of the ray, by 
+    inverting the ray’s direction. We then for loop through all of the samples. For each 
+    sample we normalize the sample and create another ray using the hit_p and world space. 
+    We also offsetted the ray by EPS_F to avoid precision errors. Then we check if the ray 
+    intersects the hit_p. If it does we update L-out to L_out + isect.bsdf->f(w_out, w_smpl) 
+    * the emission of the intersection * dot(w_smpl_wrld, isect.n) / (1.0 / (2 * PI)).
+    After the samples have been traversed through, we update L_out by averaging it, and then 
+    return L_out. 
+</p>
+
+<p>
+    <b>Importance Sampling: </b>
+We implemented this similar to the one for uniform hemisphere. The differences are that we 
+    for loop through all the scene lights. In that loop we check if the current light is the 
+    delta light. If so, set num samples to 1. Then we transverse through all the samples. 
+    If w2o * wi is negative then we move to the next sample. If not then we make a ray of
+    hit_p and wi. Then we check if that ray intersects with the intersection. If it does we 
+    update the current L_out to itself + isect.bsdf->f(w_out, wi_obj) * sample_radiance * 
+    dot(wi, isect.n) / pdf. After all the samples have been looped through we average the 
+    current L_out, and then update L_out to L_out + the averaged current L_out.
+</p>
+
+<div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="images/bunny_1rays.png" align="middle" width="360px" />
+            <figcaption align="middle">Importance: 1 Ray</figcaption>
+          </td>
+          <td>
+            <img src="images/bunny_4rays.png" align="middle" width="360px" />
+            <figcaption align="middle">Importance: 4 Rays</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="images/bunny_16rays.png" align="middle" width="360px" />
+            <figcaption align="middle">Importance: 16 Rays</figcaption>
+            </td>
+            <td>
+            <img src="images/bunny_64rays.png" align="middle" width="360px" />
+            <figcaption align="middle">Importance: 64 Rays/figcaption>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+<p>
+    In terms of more realistic features, uniform hemisphere sampling does appear to take on 
+    more realistic forms of shading. Comparatively, importance sampling has a very sharp
+    image, making the shading less realistic. The uniform hemisphere shading is more realistic,
+    but the image is much noisier compared to the importance sampling one. We see here the
+    tradeoff between the 2 different sampling techniques, realistic and noisy or shaper and 
+    less noisy. 
+</p>
+
+
       
  <h2 align="middle">Part 4: Global Illumination</h2>
            
