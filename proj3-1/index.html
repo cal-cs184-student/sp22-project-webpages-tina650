@@ -7,7 +7,10 @@
       padding-right: 100px;  
       padding-bottom: 0.25in;  
       padding-left: 100px;  
-    }  
+    }
+    html {
+        font-family: 'Helvetica';
+    }
   </style> 
 <title>Your Name  |  CS 184</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -21,7 +24,7 @@
 
     <div class="padded">
         <p>
-            In this project, we learned how to render realistic lighting via the concept of ray tracing and various illumination techniques including direct and global illumination as well as adaptive sampling that reduces noise. This project resonated with our prior knowledge and experience with graphics as ray tracing is an idea that has commonly popped up in the graphics, VFX, and gaming worlds that made hyper-realistic renders a reality, and it was very interesting to learn how ray tracing worked and the computations necessary to make ray-traced illumination function correctly.
+            In this project, we learned how to render realistic lighting via the concept of ray tracing and various illumination techniques including direct and global illumination as well as adaptive sampling that reduces noise. This project resonated with our prior knowledge and experience with graphics as ray tracing is an idea that has commonly popped up in the graphics, VFX, and gaming worlds that made hyper-realistic renders a reality, and it was very interesting to learn how ray tracing worked and the computations necessary to make ray-traced illumination function correctly and realistically.
         </p>
     <h2 align="middle">Part 1: Ray Generation and Intersection</h2>
         
@@ -95,11 +98,11 @@
      <p>
          For the most part, we followed the given specifications to implement our BVH construction 
          algorithm. The condition for which a given node is a leaf was if the number of primitives 
-         that we iterated through was less than the provided max_leaf_size parameter, in which we 
+         that we iterated through was less than the provided <code>max_leaf_size</code> parameter, in which we
          would simply set the start and end of the node to the given start and end iterators and 
          return the node. If the node was not a leaf, we would have to split the primitives into 
          left and right partitions of data, assigning the l and r to recursive calls to 
-         construct_bvh, taking in data up to the splitting point and the data from the splitting 
+         <code>construct_bvh</code>, taking in data up to the splitting point and the data from the splitting
          point to the end respectively. For choosing the splitting point, we first determined the
          average of all the centroids to act as the point that splits the data into two. However, 
          we had to then determine the best axis we would need to use to figure out which conditions 
@@ -109,7 +112,10 @@
          would be the one to split as it would be most beneficial to split a longer range of data 
          rather than splitting thinner sets of data. After finding the axis, we used std::partition 
          to partition the primitives by selecting the left data as all those whose component of the 
-         chosen axis was less than the average midpoint along our chosen axis. 
+         chosen axis was less than the average midpoint along our chosen axis.
+         <br><br>
+         However, after implementing this, we ran into infinite recursion issues with certain models. When debugging the code, it showed that either the start and the split point or the end and the split point were the same, meaning that at a certain point, all of the primitives were ending up on one side, which would cause the code to never reach the base case. To remedy this, after also trying a different split method (median splitting) that succeeded for a few but failed for the rest, we ended up reverting to our original splitting choice and making sure instead to add a base case checking if the split point was either the start or end before calling the function recursively, and if so, we would end the recursion and treat the current node like a leaf node.
+
      </p>
      
       <div align="middle">
@@ -182,15 +188,15 @@
 
 <p>
     <b>Uniform Hemisphere Sampling:</b> 
-    First, we make a coordinate system for a hit point, and make sure that N is aligned with 
-    the Z direction. Then we make w_out, which points towards the source of the ray, by 
+    First, we make a coordinate system for a hit point, and make sure that the normal vector N is aligned with
+    the Z direction. Then we make <code>w_out</code>, which points towards the source of the ray, by
     inverting the ray’s direction. We then for loop through all of the samples. For each 
     sample we normalize the sample and create another ray using the hit_p and world space. 
-    We also offsetted the ray by EPS_F to avoid precision errors. Then we check if the ray 
-    intersects the hit_p. If it does we update L-out to L_out + isect.bsdf->f(w_out, w_smpl) 
-    * the emission of the intersection * dot(w_smpl_wrld, isect.n) / (1.0 / (2 * PI)).
-    After the samples have been traversed through, we update L_out by averaging it, and then 
-    return L_out. 
+    We also offsetted the ray by <code>EPS_F</code> to avoid precision errors. Then we check if the ray
+    intersects the hit_p. If it does we update <code>L-out</code> to <code>L_out + isect.bsdf->f(w_out, w_smpl)
+    * the emission of the intersection * dot(w_smpl_wrld, isect.n) / (1.0 / (2 * PI))</code>.
+    After the samples have been traversed through, we update <code>L_out</code> by averaging it, and then
+    return <code>L_out</code>.
 </p>
 
 <p>
@@ -198,11 +204,10 @@
 We implemented this similar to the one for uniform hemisphere. The differences are that we 
     for loop through all the scene lights. In that loop we check if the current light is the 
     delta light. If so, set num samples to 1. Then we transverse through all the samples. 
-    If w2o * wi is negative then we move to the next sample. If not then we make a ray of
-    hit_p and wi. Then we check if that ray intersects with the intersection. If it does we 
-    update the current L_out to itself + isect.bsdf->f(w_out, wi_obj) * sample_radiance * 
-    dot(wi, isect.n) / pdf. After all the samples have been looped through we average the 
-    current L_out, and then update L_out to L_out + the averaged current L_out.
+    If the cos(theta) value, or the dot product of <code>isect.n</code> and the <code>wi</code> calculated from the current light's <code>sample_L</code> function is negative, we skip intersect operations in the current sample and move to the next sample. If not then we make a ray of <code>hit_p</code> and <code>wi</code>. Then, we check if that ray intersects with the intersection. If it does we
+    update the current <code>L_out</code> to itself + <code>isect.bsdf->f(w_out, wi_obj) * sample_radiance *
+    dot(wi, isect.n) / pdf</code>. After all the samples have been looped through we average the
+    current <code>L_out</code>, and then update <code>L_out</code> to <code>L_out + the averaged current L_out</code>.
 </p>
 
 <div align="middle">
@@ -225,7 +230,7 @@ We implemented this similar to the one for uniform hemisphere. The differences a
             </td>
             <td>
             <img src="images/bunny_64rays.png" align="middle" width="360px" />
-            <figcaption align="middle">Importance: 64 Rays/figcaption>
+            <figcaption align="middle">Importance: 64 Rays</figcaption>
           </td>
         </tr>
       </table>
@@ -236,7 +241,7 @@ We implemented this similar to the one for uniform hemisphere. The differences a
     more realistic forms of shading. Comparatively, importance sampling has a very sharp
     image, making the shading less realistic. The uniform hemisphere shading is more realistic,
     but the image is much noisier compared to the importance sampling one. We see here the
-    tradeoff between the 2 different sampling techniques, realistic and noisy or shaper and 
+    tradeoff between the 2 different sampling techniques, realistic and noisy or sharper and
     less noisy. 
 </p>
 
@@ -245,24 +250,54 @@ We implemented this similar to the one for uniform hemisphere. The differences a
  <h2 align="middle">Part 4: Global Illumination</h2>
 
 <p>
-    For the indirect lighting function, we had to implement two functions: at_least_one_bounce_radiance 
-    and est_radiance_global_illumination. In at_least_one_bounce_radiance, our implementation 
-    was similar to that of one_bounce_radiance in part 3 in that we used the given reflectance 
+    For the indirect lighting function, we had to implement two functions: <code>at_least_one_bounce_radiance
+    </code> and <code>est_radiance_global_illumination</code>. In <code>at_least_one_bounce_radiance </code>, our implementation
+    was similar to that of <code>one_bounce_radiance</code> in part 3 in that we used the given reflectance
     function. However, this time, given certain conditions, we would recursively call the function
     to continually bounce to give more accurate rendering results. As mentioned in the spec, 
-    these conditions are (1) the Russian roulette, in which we use a cpdf (or a continuous pdf 
+    these conditions are (1) <b>Russian roulette</b>, in which we use a cpdf (or a continuous pdf
     that is the complement of a termination probability) to calculate a random choice between 
-    0 and 1 using the function coin_flip (to test if a random value between 0 and 1 is less 
+    0 and 1 using the function <code>coin_flip</code> (to test if a random value between 0 and 1 is less
     than the cpdf) to see if we will bounce once we begin reaching the maximum number of 
-    bounces, and (2) max_ray_depth, or the maximum number of bounces allowed, is greater 
-    than 1 in which the function will always continue with bouncing regardless of the Russian 
-    roulette results. This, of course, would end regardless once the number of bounces 
-    surpasses the maximum number of bounces defined by max_ray_depth. If the depth is 0, 
-    we would just return Vector3D(0,0,0). We then add the result returned by this function 
-    to the overall reflectance in est_radiance_global_illumination.
+    bounces, and (2) <code>max_ray_depth</code>, or the maximum number of bounces allowed, <b>is greater
+    than 1</b> before the first bounce in which the function guarantees at least one indirect bounce regardless of the Russian
+    roulette results. This, of course, would end regardless once <b>the number of bounces
+    surpasses the maximum number of bounces</b> defined by <code>max_ray_depth</code>. For each bounce, we would add to L_out the result from the next recursive call of <code>at_least_one_bounce_radiance</code> (taking in parameters of (1) the <b>next ray</b> with an origin at <code>hit_p</code>, a direction of <code>wi</code> calculated from <code>isect.bsdf->sample_f</code>, and a depth of the current ray's depth - 1, and (2) the next ray's <b>Intersection</b>) multipled by <code>isect.bsdf->sample_f(w_out, &wi, &pdf) / pdf * cosine(theta)</code> and divided by <code>cpdf</code> if we use Russian roulette.  If the depth is 0,
+    we would just return Vector3D(0,0,0). We then add the result returned by this function
+    to the overall reflectance in <code>est_radiance_global_illumination</code>.
 </p>
 
 <div align="middle">
+    <b>Images rendered with global illumination at 1024 samples per pixel:</b>
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="images/bunny_global.png" align="middle" width="360px" />
+            <figcaption align="middle">Bunny</figcaption>
+          </td>
+          <td>
+            <img src="images/spheres_global.png" align="middle" width="360px" />
+            <figcaption align="middle">Spheres</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="images/dragon_glbl.png" align="middle" width="360px" />
+            <figcaption align="middle">Dragon</figcaption>
+          </td>
+          <td>
+            <img src="images/bunny_not_cb_global.png" align="middle" width="360px" />
+            <figcaption align="middle">Bunny Statue</figcaption>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+<br/><br/>
+
+<div align="middle">
+    <b>Scene with only direct illumination vs. only indirect illumination:</b>
       <table style="width=100%">
         <tr>
           <td>
@@ -276,13 +311,105 @@ We implemented this similar to the one for uniform hemisphere. The differences a
         </tr>
       </table>
     </div>
+
+
+<br/><br/>
+<div align="middle">
+    <b>Different max_ray_depth values:</b>
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="images/bunny_p4_0.png" align="middle" width="360px" />
+            <figcaption align="middle">max_ray_depth = 0</figcaption>
+          </td>
+          <td>
+            <img src="images/bunny_p4_1.png" align="middle" width="360px" />
+            <figcaption align="middle">max_ray_depth = 1</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="images/bunny_p4_2.png" align="middle" width="360px" />
+            <figcaption align="middle">max_ray_depth = 2</figcaption>
+          </td>
+          <td>
+            <img src="images/bunny_p4_3.png" align="middle" width="360px" />
+            <figcaption align="middle">max_ray_depth = 3</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td align="middle">
+            <img src="images/bunny_p4_100.png" align="middle" width="360px" />
+            <figcaption align="middle">max_ray_depth = 100</figcaption>
+          </td>
+        </tr>
+        
+      </table>
+    </div>
+
+<br/><br/>
+<div align="middle">
+    <b>Different sample per pixel rates for 4 light rays</b>
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="images/bunny_p4_s1.png" align="middle" width="360px" />
+            <figcaption align="middle">Sample per pixel rate = 1</figcaption>
+          </td>
+          <td>
+            <img src="images/bunny_p4_s2.png" align="middle" width="360px" />
+            <figcaption align="middle">Sample per pixel rate = 2</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="images/bunny_p4_s4.png" align="middle" width="360px" />
+            <figcaption align="middle">Sample per pixel rate = 4</figcaption>
+          </td>
+          <td>
+            <img src="images/bunny_p4_s16.png" align="middle" width="360px" />
+            <figcaption align="middle">Sample per pixel rate = 16</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="images/bunny_p4_s64.png" align="middle" width="360px" />
+            <figcaption align="middle">Sample per pixel rate = 64</figcaption>
+          </td>
+          <td>
+            <img src="images/bunny_p4_s1024.png" align="middle" width="360px" />
+            <figcaption align="middle">Sample per pixel rate = 1024</figcaption>
+          </td>
+        </tr>
+        
+      </table>
+    </div>
            
  <h2 align="middle">Part 5: Adaptive Sampling</h2>
         
 <p>
-    For adaptive sampling, we limit the number of samples we take per pixel and instead focus more samples on pixels that need more samples for higher accuracy in order to reduce noise. To do so, we record several new variables including the current number of samples (which we increment until we decide to converge), s1 and s2 (which is the sum of illuminance values of the radiance and the same sum squared respectively), as well as the mean and standard deviation of the illuminance values and the convergence, which we calculate to be I = 1.96 * standard deviation / sqrt(curr_num_samples). To reduce the amount of computations, we also calculate convergences in batches of samplesPerBatch values, summing up s1 and s2 for each batch and after each batch computing the convergence. If the convergence I is less than or equal to the given maxTolerance * mean, we would stop generating rays and update the pixel with the color still calculated as the average radiance.
+    For adaptive sampling, we limit the number of samples we take per pixel and instead focus more samples on pixels that need more samples for higher accuracy in order to reduce noise. To do so, we record several new variables including the current number of samples (which we increment until we decide to converge), <b>s1</b> and <b>s2</b> (which is the sum of illuminance values of the radiance and the same sum squared respectively), as well as the <b>mean</b> and <b>standard deviation</b> of the illuminance values up to the current number of samples and the convergence, which we calculate to be: <pre align="middle">I = 1.96 * standard deviation / sqrt(curr_num_samples)</pre> To reduce the amount of computations, we also calculate convergences in batches of <code>samplesPerBatch</code> values, summing up s1 and s2 for each batch and computing the convergence after each batch. If the convergence I is less than or equal to the given <b><i>maxTolerance * mean</i></b>, we would stop generating rays, update the pixel with the color still calculated as the average radiance, and set the respective position in <code>sampleCountBuffer</code> to the number of samples actually used.
 
 </p>
+
+<div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="images/bunny_p5.png" align="middle" width="360px" />
+            <figcaption align="middle">Bunny with Adaptive Sampling</figcaption>
+          </td>
+          <td>
+            <img src="images/bunny_p5_rate.png" align="middle" width="360px" />
+            <figcaption align="middle">Sample Rate</figcaption>
+          </td>
+        </tr>
+      </table>
+    </div>
         
  
 </div>
