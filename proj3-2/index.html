@@ -24,6 +24,8 @@
         <o>The website writeup is intended to be a self-contained walkthrough of the assignment: we want this to be a piece of work which showcases your understanding of relevant concepts through both mesh images as well as written explanations about what you did to complete each part of the assignment. Try to be as clear and organized as possible when writing about your own output files or extensions to the assignment. We want to understand what you've achieved and how you've done it!</p> 
         <p>If you are well-versed in web development, feel free to ditch this template and make a better looking page. Just make sure that you include all the components as we've laid them out here. </p>
 
+        
+        
     <h2 align="middle">Part 1: Ray Generation and Intersection</h2>
         
         <div align="middle">
@@ -75,6 +77,35 @@
     </div>
         
         
+<p>
+<b>Max Ray Depth 0: </b> 
+There are 0 bounces of light, so you can see self-emissive objects aka the area light
+</p>
+<p>
+<b>Max Ray Depth 1: </b>
+There is 1 bounce of light where we can now see some direct light illuminating. So as you can see we are seeing some of the highlights on the spheres.
+</p>
+<p>
+<b>Max Ray Depth 2: </b>
+There are now 2 bounces of light causing indirect illumination. We can now see that the left sphere can now mirror its surroundings. The right sphere which is supposed to be glass is starting to reflect and refract some light. 
+</p>
+<p>
+<b>Max Ray Depth 3: </b>
+With 3 bounces of light we see the right glass sphere becoming more glass-like with it actually reflecting and refracting most of the light. Also you can see light refracted under the glass ball. The mirror ball looks more or less the same as with 2 light bounces.
+</p>
+<p>
+<b>Max Ray Depth 4: </b>
+With 4 light bounces the reflection of the glass ball in the mirror ball it's finally glass like and no longer dark. Also the glass ball becomes glossier more glass light due to the added light bounce. Also the white spot due to the reflection of light from the glass ball is finally starting to appear on the purple wall.
+</p>
+<p>
+<b>Max Ray Depth 5: </b>
+With 5 light bounces The picture doesn't change too much. Light bounces and more reflection and refraction the picture is brighter and a little less noisy. 
+</p>
+<p>
+<b>Max Ray Depth 100: </b>
+Now that we have 100 light bounces the resulting picture actually is not too different from the pictures with 4 and 5 light bounces. With all these added light bounces we can see that the picture is brighter and a little less noisy, but overall nothing much has changed. 
+</p>
+
         
         
         <p>Describe what you did in Part 1. etc...</p>
