@@ -20,11 +20,9 @@
      <h3 align="middle"><a href="https://cal-cs184-student.github.io/sp22-project-webpages-tina650/proj3-2/index.html">https://cal-cs184-student.github.io/sp22-project-webpages-tina650/proj3-2/index.html</a></h3>
 
     <div class="padded">
-        <p>Use this section to write an overview of the assignment. All of the text in your write-up should be <em>in your own words</em>. If you need to add additional HTML features to this document, you can search the <a href="http://www.w3schools.com/">http://www.w3schools.com/</a> website for instructions. To edit the HTML, you can just copy and paste existing chunks and fill in the text and image file names appropriately.</p>
-        <o>The website writeup is intended to be a self-contained walkthrough of the assignment: we want this to be a piece of work which showcases your understanding of relevant concepts through both mesh images as well as written explanations about what you did to complete each part of the assignment. Try to be as clear and organized as possible when writing about your own output files or extensions to the assignment. We want to understand what you've achieved and how you've done it!</p> 
-        <p>If you are well-versed in web development, feel free to ditch this template and make a better looking page. Just make sure that you include all the components as we've laid them out here. </p>
-
-        
+        <p>
+            For this project, we expanded upon the functionality within the first part of project 3’s rendering by implementing rendering properties of different materials including reflective, refractive, and microfacet surfaces. Material properties are important functionalities within graphics applications in animations, VFX, and video games that indicate a realistic rendition of texture, which is something we were familiar with from our knowledge of game development and 3D modeling softwares. Based on these prior experiences, seeing how these types of materials were implemented to mimic real life properties was very interesting to learn about and satisfying to see come to life in our renderings.
+        </p>
         
     <h2 align="middle">Part 1</h2>
         
@@ -131,6 +129,22 @@ Now that we have 100 light bounces the resulting picture actually is not too dif
         
         <h2 align="middle">Part 2</h2>
         
+        <p>
+            For the most part, creating the functionality for the microfacet BSDF was fairly 
+            straight-forward as we used the given approximation formulas. To implement the 
+            rendering of microfacet material, there were a few quantities we had to first 
+            calculate before doing so. First, we implemented the BRDF evaluation function 
+            f(), given by F(w_i) * G(w_o, w_i) * D(h) / (4 * (n • w_o) * (n • w_i)). G was
+            the shadowing-masking term, h refers to the half vector between wo and wi (or wi
+            + wo normalized), while F and D, which were implemented afterwards, corresponds 
+            to the Fresnel term and the Normal Distribution Function respectively. To make 
+            the rendering more efficient and accurately reflect its surroundings, we also
+            implemented importance sampling in sample_f by randomly generating theta and phi 
+            angles that determined the pdf and wi. It was a slightly challenging to figure out
+            calculating such vectors as the sampled normal h and the reflection of wo about h,
+            but after researching online about polar coordinates and vector reflections, we 
+            eventually figured out how to implement these values.
+        </p>
         
         <div align="middle">
       <table style="width=100%">
@@ -181,10 +195,19 @@ Now that we have 100 light bounces the resulting picture actually is not too dif
       </table>
     </div>     
         
+        <p>
+            The cosine hemisphere sampling makes the model’s surface have darker shadows and
+            less reflection of the surrounding environment, hiding a lot of the details within
+            the model, while the importance sampling scene has reflected light demonstrated by
+            the red/blue walls and the white floor reflecting off the bunny’s surface.
+        </p>
+        
         
         <img src="imag/silver_bunny.png" align="middle" width="460px" />
             <figcaption align="middle">Silver Bunny</figcaption>
-        
+        <p>
+            Material = Silver
+        </P>
         
     <h2 align="middle">Working as Partners</h2>
         <p>
