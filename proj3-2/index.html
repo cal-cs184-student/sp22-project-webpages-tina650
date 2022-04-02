@@ -26,8 +26,32 @@
 
         
         
-    <h2 align="middle">Part 1: Ray Generation and Intersection</h2>
+    <h2 align="middle">Part 1</h2>
         
+        <p>
+            In order to implement the reflect function it was quite easy all we had to do was a 1 line transformation of the x, y, and z coordinates. 
+      In order to make the mirror material is a little bit more complicated. In sample_f we had to set the PDF to 1 and call reflect. We had to return 
+            reflectance / the absolute cosine of *wi  in order to cancel out the cosine of the one in at least one bounce radiance. Then for refraction
+            we just implemented Snell’s equations and applied Snell’s law of refraction. Then for glass material we just use Schlick's approximation. 
+        </p>
+        
+         <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="imag/snell.png" align="middle" width="300px" />
+            <figcaption align="middle">Snell’s Law of Refraction</figcaption>
+          </td>
+          <td>
+            <img src="imag/sappx.PNG" align="middle" width="300px" />
+            <figcaption align="middle">Schlick's Approximation</figcaption>
+          </td>
+          </tr>
+      </table>
+    </div>        
+        
+        <br><br><br><br><br><br>
+               
         <div align="middle">
       <table style="width=100%">
         <tr>
@@ -74,9 +98,7 @@
           </td>
           </tr>
       </table>
-    </div>
-        
-        
+    </div>        
 <p>
 <b>Max Ray Depth 0: </b> 
 There are 0 bounces of light, so you can see self-emissive objects aka the area light
@@ -107,24 +129,63 @@ Now that we have 100 light bounces the resulting picture actually is not too dif
 </p>
 
         
+        <h2 align="middle">Part 2</h2>
         
-        <p>Describe what you did in Part 1. etc...</p>
-        <div align="center">
-            <table style="width=100%">
-                <tr>
-                    <td align="middle">
-                    <img src="images/example_image.png" width="480px" />
-                    <figcaption align="middle">Results Caption: my bunny is the bounciest bunny</figcaption>
-                </tr>
-            </table>
-        </div>
-        <p>Here is an example of how to include a simple formula:</p>
-        <p align="middle"><pre align="middle">a^2 + b^2 = c^2</pre></p>
-        <p>or, alternatively, you can include an SVG image of a LaTex formula.</p>
-        <p>This time it's your job to copy-paste in the rest of the sections :)</p>
-
-
-
+        
+        <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="imag/alpha0_005.png" align="middle" width="460px" />
+            <figcaption align="middle">Alpha = 0.005</figcaption>
+          </td>
+          <td>
+            <img src="imag/alpha0_05.png" align="middle" width="460px" />
+            <figcaption align="middle">Alpha = 0.05</figcaption>
+          </td>
+          </tr>
+          <br>
+          <tr>
+          <td>
+            <img src="imag/alpha0_25.png" align="middle" width="460px" />
+            <figcaption align="middle">Alpha = 0.25</figcaption>
+          </td>
+          <td>
+            <img src="imag/alpha0_5.png" align="middle" width="460px" />
+            <figcaption align="middle">Alpha = 0.5</figcaption>
+          </td>
+          </tr>
+      </table>
+    </div>      
+        
+        <p>
+            When comparing the different alpha values, we see that a lower alpha value corresponds to a much smoother, shinier, 
+            and reflective surface, whereas a higher alpha corresponds with a much rougher, less 
+            reflective surface that gives off most of its base color rather than a reflection of its 
+            surroundings.
+        </p>
+        
+        
+        <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="imag/cosine_smpl.png" align="middle" width="460px" />
+            <figcaption align="middle">Cosine Hemisphere Sampling</figcaption>
+          </td>
+          <td>
+            <img src="imag/importance_smpl.png" align="middle" width="460px" />
+            <figcaption align="middle">Importance Sampling</figcaption>
+          </td>
+          </tr>
+      </table>
+    </div>     
+        
+        
+        <img src="imag/silver_bunny.png" align="middle" width="460px" />
+            <figcaption align="middle">Silver Bunny</figcaption>
+        
+        
     <h2 align="middle">Working as Partners</h2>
         <p>
             As for working with a partner, since we only had a complete 2 parts for this project we decided to split up the two parts.
